@@ -1,9 +1,9 @@
-/* assets/css/style.css */
 
-/* Import de la police Montserrat depuis Google Fonts */
+
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
-/* Variables de couleur */
+
 :root {
   --primary-color: #4a90e2;
   --secondary-color: #ff6f61;
@@ -11,14 +11,14 @@
   --text-dark: #333333;
 }
 
-/* Réinitialisation de base */
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Corps de page */
+
 body {
   font-family: 'Montserrat', sans-serif;
   background-color: var(--bg-light);
@@ -26,7 +26,7 @@ body {
   line-height: 1.6;
 }
 
-/* Navbar */
+
 .navbar {
   background: linear-gradient(90deg, var(--primary-color), #357ab8);
 }
@@ -42,18 +42,18 @@ body {
   color: var(--secondary-color) !important;
 }
 
-/* Badge du panier */
+
 .badge {
   font-size: 0.75rem;
 }
 
-/* Conteneur principal */
+
 .container {
   max-width: 1200px;
   padding: 1rem;
 }
 
-/* Cartes produit */
+
 .card {
   border: none;
   border-radius: 0.75rem;
@@ -79,7 +79,7 @@ body {
   font-weight: 500;
 }
 
-/* Boutons */
+
 .btn-success {
   background-color: var(--secondary-color);
   border: none;
@@ -98,7 +98,7 @@ body {
   background-color: #c0392b;
 }
 
-/* Formulaires */
+
 .form-control,
 .form-select {
   border-radius: 0.5rem;
@@ -111,7 +111,7 @@ body {
   box-shadow: none;
 }
 
-/* Pied de page (si ajouté) */
+
 footer {
   text-align: center;
   padding: 1rem 0;
@@ -119,7 +119,7 @@ footer {
   color: #777777;
 }
 
-/* Ajustements responsive */
+
 @media (max-width: 768px) {
   .card-img-top {
     height: 150px;

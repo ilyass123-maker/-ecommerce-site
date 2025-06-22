@@ -1,15 +1,15 @@
 <?php
-// public/cart.php
+
 
 session_start();
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/auth.php';
 require_login();
 
-// Récupérer le panier depuis la session
+
 $cart = $_SESSION['cart'] ?? [];
 
-// Retirer un article du panier
+
 if (isset($_GET['remove'])) {
     $id = (int) $_GET['remove'];
     unset($cart[$id]);
@@ -22,7 +22,7 @@ $products = [];
 $total = 0;
 
 if ($cart) {
-    // Charger les détails des produits en une seule requête
+    
     $ids = implode(',', array_keys($cart));
     $stmt = $pdo->query("SELECT * FROM products WHERE id IN ($ids)");
     $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -39,7 +39,7 @@ if ($cart) {
     }
 }
 
-// Titre pour header.php
+
 $page_title = 'Votre Panier';
 include __DIR__ . '/includes/header.php';
 ?>
@@ -63,9 +63,9 @@ include __DIR__ . '/includes/header.php';
             <?php foreach ($products as $row): ?>
                 <tr>
                     <td><?= htmlspecialchars($row['item']['name']) ?></td>
-                    <td><?= number_format($row['item']['price'], 2, ',', ' ') ?> €</td>
+                    <td><?= number_format($row['item']['price'], 2, ',', ' ') ?> dh</td>
                     <td><?= $row['qty'] ?></td>
-                    <td><?= number_format($row['subtotal'], 2, ',', ' ') ?> €</td>
+                    <td><?= number_format($row['subtotal'], 2, ',', ' ') ?> dh</td>
                     <td>
                         <a href="?remove=<?= $row['item']['id'] ?>" class="btn btn-sm btn-danger">
                             Retirer
@@ -75,7 +75,7 @@ include __DIR__ . '/includes/header.php';
             <?php endforeach; ?>
             <tr>
                 <th colspan="3">Total</th>
-                <th><?= number_format($total, 2, ',', ' ') ?> €</th>
+                <th><?= number_format($total, 2, ',', ' ') ?> dh</th>
                 <th></th>
             </tr>
         </tbody>

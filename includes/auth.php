@@ -1,13 +1,12 @@
 <?php
-// includes/auth.php
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-/**
- * Authenticate via email + password_verify()
- */
+
+
+ 
 function login(string $email, string $pass)
 {
     global $pdo;
@@ -21,7 +20,6 @@ function login(string $email, string $pass)
     return false;
 }
 
-/** Redirect to login if not authenticated */
 function require_login(): void
 {
     if (empty($_SESSION['user_id'])) {
@@ -30,7 +28,7 @@ function require_login(): void
     }
 }
 
-/** Log out & return to login page */
+
 function logout(): void
 {
     session_destroy();

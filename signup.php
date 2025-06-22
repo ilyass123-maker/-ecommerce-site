@@ -1,5 +1,6 @@
 <?php
-// public/signup.php
+
+
 
 session_start();
 require_once __DIR__ . '/includes/config.php';
@@ -18,18 +19,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($password !== $confirm) {
         $error = 'Les mots de passe ne correspondent pas.';
     } else {
-        // Check for existing email
+        
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = ?");
         $stmt->execute([$email]);
         if ($stmt->fetchColumn() > 0) {
             $error = 'Cet email est déjà utilisé.';
         } else {
-            // Insert with hashed password
+            
             $hash = password_hash($password, PASSWORD_DEFAULT);
             $stmt = $pdo->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
             $stmt->execute([$email, $hash]);
 
-            // Auto-login
+          
             $_SESSION['user_id'] = $pdo->lastInsertId();
             header('Location: buyer_interface.php');
             exit;

@@ -1,5 +1,5 @@
 <?php
-// includes/header.php
+
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -13,38 +13,54 @@ $cartCount = array_sum($_SESSION['cart'] ?? []);
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title><?= htmlspecialchars($page_title ?? 'Ma Boutique') ?></title>
 
-  <link href="https://bootswatch.com/5/lux/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/css/style.css" rel="stylesheet">
+  
+  <link
+    href="https://bootswatch.com/5/lux/bootstrap.min.css"
+    rel="stylesheet"
+  >
+  
+  <link
+    href="assets/css/style.css"
+    rel="stylesheet"
+  >
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container d-flex align-items-center">
 
-    <!-- Logo à gauche, un peu plus grand (60px) -->
+    
     <a class="navbar-brand pe-3" href="index.php">
-      <img src="assets/img/logo.png" alt="Logo" height="60">
+      <img
+        src="assets/img/logo.png"
+        alt="Logo"
+        height="60"
+      >
     </a>
 
-    <!-- Buy & Sell links -->
+    
     <?php if ($isLogged): ?>
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link <?= $current==='buyer_interface.php'?'active':'' ?>"
-             href="buyer_interface.php">Buy</a>
+          <a
+            class="nav-link <?= $current==='buyer_interface.php' ? 'active' : '' ?>"
+            href="buyer_interface.php"
+          >Buy</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?= $current==='seller_interface.php'?'active':'' ?>"
-             href="seller_interface.php">Sell</a>
+          <a
+            class="nav-link <?= $current==='seller_interface.php' ? 'active' : '' ?>"
+            href="seller_interface.php"
+          >Sell</a>
         </li>
       </ul>
     <?php else: ?>
       <div class="me-auto"></div>
     <?php endif; ?>
 
-    <!-- Auth/Cart links on the right -->
+    
     <ul class="navbar-nav ms-auto">
       <?php if (!$isLogged): ?>
         <?php if ($current === 'index.php'): ?>

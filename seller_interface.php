@@ -1,5 +1,5 @@
 <?php
-// seller_interface.php
+
 
 session_start();
 require_once __DIR__ . '/includes/config.php';
@@ -8,13 +8,13 @@ require_login();
 
 $userId = $_SESSION['user_id'];
 
-// Ensure upload dir exists
+
 $uploadDir = __DIR__ . '/assets/uploads/';
 if (!is_dir($uploadDir)) {
     mkdir($uploadDir, 0755, true);
 }
 
-// Handle form submission (create/update)
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name        = trim($_POST['name']);
     $description = trim($_POST['description']);
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $type        = trim($_POST['type']);
 
     if (!empty($_POST['id'])) {
-        // Update existing product
+        
         $id = (int) $_POST['id'];
         $stmt = $pdo->prepare("
             UPDATE products
@@ -31,11 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ");
         $stmt->execute([$name, $description, $price, $type, $id, $userId]);
 
-        // Remove old images
+        
         $del = $pdo->prepare("DELETE FROM product_images WHERE product_id = ?");
         $del->execute([$id]);
     } else {
-        // Insert new product
+       
         $stmt = $pdo->prepare("
             INSERT INTO products
               (name, description, price, type, seller_id)
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $pdo->lastInsertId();
     }
 
-    // Process uploaded files
+    
     if (!empty($_FILES['images'])) {
         for ($i = 0; $i < count($_FILES['images']['name']); $i++) {
             if ($_FILES['images']['error'][$i] === UPLOAD_ERR_OK) {
@@ -68,11 +68,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// Handle deletion
+
 if (isset($_GET['delete'])) {
     $id = (int) $_GET['delete'];
 
-    // Delete files from disk
+    
     $stmt = $pdo->prepare("SELECT url FROM product_images WHERE product_id = ?");
     $stmt->execute([$id]);
     $urls = $stmt->fetchAll(PDO::FETCH_COLUMN);
@@ -83,7 +83,7 @@ if (isset($_GET['delete'])) {
         }
     }
 
-    // Delete from DB
+    
     $pdo->prepare("DELETE FROM product_images WHERE product_id = ?")
         ->execute([$id]);
     $pdo->prepare("DELETE FROM products WHERE id = ? AND seller_id = ?")
@@ -93,7 +93,7 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-// Fetch products and their images
+
 $stmt = $pdo->prepare("SELECT * FROM products WHERE seller_id = ? ORDER BY id DESC");
 $stmt->execute([$userId]);
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -118,7 +118,7 @@ include __DIR__ . '/includes/header.php';
       <th>ID</th>
       <th>Nom</th>
       <th>Description</th>
-      <th>Prix (€)</th>
+      <th>Prix (dh)</th>
       <th>Type</th>
       <th>Aperçu</th>
       <th>Actions</th>
@@ -189,7 +189,7 @@ include __DIR__ . '/includes/header.php';
   </div>
 
   <div class="mb-3">
-    <label for="price" class="form-label">Prix (€)</label>
+    <label for="price" class="form-label">Prix (dh)</label>
     <input
       type="number"
       step="0.01"
@@ -224,7 +224,7 @@ include __DIR__ . '/includes/header.php';
 </form>
 
 <script>
-// Pré-remplissage du formulaire d'édition
+
 document.querySelectorAll('.btn-edit-product').forEach(btn => {
   btn.addEventListener('click', () => {
     const [id,name,desc,price,type,imgs] = [
