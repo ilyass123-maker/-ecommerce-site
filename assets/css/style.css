@@ -1,130 +1,23 @@
+/* css/style.css */
 
-
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
-
-
-:root {
-  --primary-color: #4a90e2;
-  --secondary-color: #ff6f61;
-  --bg-light: #f9f9f9;
-  --text-dark: #333333;
-}
-
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-
-body {
-  font-family: 'Montserrat', sans-serif;
-  background-color: var(--bg-light);
-  color: var(--text-dark);
-  line-height: 1.6;
-}
-
-
-.navbar {
-  background: linear-gradient(90deg, var(--primary-color), #357ab8);
-}
-.navbar-brand {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-.nav-link {
-  color: #ffffff !important;
-  transition: color 0.3s;
-}
-.nav-link:hover {
-  color: var(--secondary-color) !important;
-}
-
-
-.badge {
-  font-size: 0.75rem;
-}
-
-
-.container {
-  max-width: 1200px;
-  padding: 1rem;
-}
-
-
-.card {
-  border: none;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
+/* Tweak card hover */
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-}
-.card-img-top {
-  border-top-left-radius: 0.75rem;
-  border-top-right-radius: 0.75rem;
-  height: 200px;
-  object-fit: cover;
-}
-.card-title {
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-.card-text {
-  color: var(--primary-color);
-  font-weight: 500;
+  transition: all 0.3s;
 }
 
-
-.btn-success {
-  background-color: var(--secondary-color);
-  border: none;
-  font-weight: 600;
-  transition: background-color 0.3s;
+/* Cart badge */
+#cart-btn {
+  position: relative;
 }
-.btn-success:hover {
-  background-color: #e65b50;
-}
-.btn-danger {
-  background-color: #e74c3c;
-  border: none;
-  transition: background-color 0.3s;
-}
-.btn-danger:hover {
-  background-color: #c0392b;
-}
-
-
-.form-control,
-.form-select {
-  border-radius: 0.5rem;
-  border: 1px solid #dddddd;
-  transition: border-color 0.3s;
-}
-.form-control:focus,
-.form-select:focus {
-  border-color: var(--primary-color);
-  box-shadow: none;
-}
-
-
-footer {
-  text-align: center;
-  padding: 1rem 0;
+#cart-count {
+  background: #dc3545;
+  color: #fff;
+  border-radius: 50%;
+  padding: 0.25em 0.6em;
   font-size: 0.9rem;
-  color: #777777;
-}
-
-
-@media (max-width: 768px) {
-  .card-img-top {
-    height: 150px;
-  }
-  .navbar-brand {
-    font-size: 1.25rem;
-  }
+  position: absolute;
+  top: -5px;
+  right: -10px;
 }

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ma Boutique</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <!-- Custom CSS -->
+  <link href="assets/css/style.css" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <!-- Logo -->
+      <a class="navbar-brand" href="#" id="home-link">
+        <img src="assets/img/logo.png" alt="Logo" height="50" />
+      </a>
+
+      <!-- Accueil & Profil -->
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="accueil-link">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="profil-link">Profil</a>
+        </li>
+      </ul>
+
+      <!-- Cart button -->
+      <button class="btn btn-outline-primary" id="cart-btn">
+        🛒 <span id="cart-count">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN LAYOUT -->
+  <div class="container-fluid mt-4">
+    <div class="row">
+      <!-- SIDEBAR (filters only) -->
+      <aside class="col-md-3 d-none d-md-block">
+        <div class="card mb-4">
+          <div class="card-header">Filtres</div>
+          <div class="card-body">
+            <button id="reset-filters" class="btn btn-sm btn-danger mb-3">
+              Réinitialiser
+            </button>
+
+            <div class="mb-3">
+              <label for="sort-select" class="form-label">Trier par</label>
+              <select id="sort-select" class="form-select">
+                <option value="title">Titre (A–Z)</option>
+                <option value="price">Prix (croissant)</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="search-input" class="form-label">Recherche</label>
+              <input
+                id="search-input"
+                type="text"
+                class="form-control"
+                placeholder="Rechercher les produits…"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="category-select" class="form-label">Catégories</label>
+              <select id="category-select" class="form-select">
+                <option value="">Toutes</option>
+                <!-- JS‐populated -->
+              </select>
+            </div>
+
+            <div>
+              <label class="form-label">Prix</label>
+              <input
+                id="price-range"
+                type="range"
+                class="form-range"
+                min="0"
+                max="1000"
+              />
+              <div class="d-flex justify-content-between">
+                <small id="price-min">0</small>
+                <small id="price-max">1000</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- PRODUCT GRID & PAGINATION -->
+      <main class="col-12 col-md-9">
+        <div id="product-grid" class="row g-4"></div>
+        <nav>
+          <ul id="pagination" class="pagination justify-content-center my-4"></ul>
+        </nav>
+      </main>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Your App Logic -->
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
