@@ -6,25 +6,22 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 /**
- * Tente d’authentifier un utilisateur en vérifiant
- * le mot de passe via password_verify().
+ * Authenticate via email + password_verify()
  */
 function login(string $email, string $pass)
 {
     global $pdo;
-    // 1) Récupérer l’utilisateur par email
     $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ?');
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // 2) Si trouvé, vérifier le mot de passe
     if ($user && password_verify($pass, $user['password'])) {
         return $user;
     }
-
     return false;
 }
 
+/** Redirect to login if not authenticated */
 function require_login(): void
 {
     if (empty($_SESSION['user_id'])) {
@@ -33,6 +30,7 @@ function require_login(): void
     }
 }
 
+/** Log out & return to login page */
 function logout(): void
 {
     session_destroy();

@@ -18,22 +18,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($password !== $confirm) {
         $error = 'Les mots de passe ne correspondent pas.';
     } else {
-        // Vérifier unicité d’email
+        // Check for existing email
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = ?");
         $stmt->execute([$email]);
         if ($stmt->fetchColumn() > 0) {
             $error = 'Cet email est déjà utilisé.';
         } else {
-            // Insérer avec hash
+            // Insert with hashed password
             $hash = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $pdo->prepare(
-                "INSERT INTO users (email, password, role) VALUES (?, ?, 'buyer')"
-            );
+            $stmt = $pdo->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
             $stmt->execute([$email, $hash]);
 
-            // AUTO-LOGIN et redirection vers la boutique
-            $_SESSION['user_id']   = $pdo->lastInsertId();
-            $_SESSION['user_role'] = 'buyer';
+            // Auto-login
+            $_SESSION['user_id'] = $pdo->lastInsertId();
             header('Location: buyer_interface.php');
             exit;
         }
@@ -49,28 +46,19 @@ include __DIR__ . '/includes/header.php';
     <?php if ($error): ?>
       <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
-    <form method="post" novalidate>
+    <form method="post">
       <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input
-          type="email" id="email" name="email"
-          class="form-control" required
-          value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"
-        >
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" required
+               value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
       </div>
       <div class="mb-3">
-        <label for="password" class="form-label">Mot de passe</label>
-        <input
-          type="password" id="password" name="password"
-          class="form-control" required
-        >
+        <label class="form-label">Mot de passe</label>
+        <input type="password" name="password" class="form-control" required>
       </div>
       <div class="mb-3">
-        <label for="confirm" class="form-label">Confirmer le mot de passe</label>
-        <input
-          type="password" id="confirm" name="confirm"
-          class="form-control" required
-        >
+        <label class="form-label">Confirmer le mot de passe</label>
+        <input type="password" name="confirm" class="form-control" required>
       </div>
       <button type="submit" class="btn btn-primary w-100">Sign Up</button>
       <p class="text-center mt-3">
