@@ -1,28 +1,30 @@
 <?php
 // includes/auth.php
 
-// Démarrer la session si ce n'est pas déjà fait
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 /**
- * Tente d’authentifier un utilisateur.
- * @param string $email
- * @param string $pass
- * @return array|false  Les données de l’utilisateur ou false si échec.
+ * Tente d’authentifier un utilisateur en vérifiant
+ * le mot de passe via password_verify().
  */
 function login(string $email, string $pass)
 {
     global $pdo;
-    $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ? AND password = ?');
-    $stmt->execute([$email, $pass]);
-    return $stmt->fetch();
+    // 1) Récupérer l’utilisateur par email
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ?');
+    $stmt->execute([$email]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // 2) Si trouvé, vérifier le mot de passe
+    if ($user && password_verify($pass, $user['password'])) {
+        return $user;
+    }
+
+    return false;
 }
 
-/**
- * Vérifie qu’un utilisateur est connecté, sinon redirige vers la page de login.
- */
 function require_login(): void
 {
     if (empty($_SESSION['user_id'])) {
@@ -31,9 +33,6 @@ function require_login(): void
     }
 }
 
-/**
- * Déconnecte l’utilisateur et retourne à la page de connexion.
- */
 function logout(): void
 {
     session_destroy();

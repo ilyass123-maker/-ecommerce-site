@@ -2,8 +2,8 @@
 // public/buyer_interface.php
 
 session_start();
-require_once __DIR__ . '/../includes/config.php';
-require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/auth.php';
 require_login();
 
 // Récupérer les types de produits
@@ -29,7 +29,7 @@ if (isset($_GET['add_to_cart'])) {
 
 // Titre de la page pour header.php
 $page_title = 'Boutique';
-include __DIR__ . '/../includes/header.php';
+include __DIR__ . '/includes/header.php';
 ?>
 
 <div class="row">
@@ -52,4 +52,4 @@ include __DIR__ . '/../includes/header.php';
   <?php endforeach; ?>
 </div>
 
-<?php include __DIR__ . '/../includes/footer.php'; ?>
+<?php include __DIR__ . '/includes/footer.php'; ?>

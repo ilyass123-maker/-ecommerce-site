@@ -2,8 +2,8 @@
 // public/seller_interface.php
 
 session_start();
-require_once __DIR__ . '/../includes/config.php';
-require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/auth.php';
 
 // Vérifier l’authentification
 require_login();
@@ -56,7 +56,7 @@ $prods = $pdo->query('SELECT * FROM products ORDER BY id DESC')
 
 // Charger l’en-tête
 $page_title = 'Gestion des produits';
-include __DIR__ . '/../includes/header.php';
+include __DIR__ . '/includes/header.php';
 ?>
 
 <h2 class="mb-4">Gestion des produits</h2>
@@ -137,5 +137,5 @@ include __DIR__ . '/../includes/header.php';
 
 <?php
 // Charger le pied de page
-include __DIR__ . '/../includes/footer.php';
+include __DIR__ . '/includes/footer.php';
 ?>
